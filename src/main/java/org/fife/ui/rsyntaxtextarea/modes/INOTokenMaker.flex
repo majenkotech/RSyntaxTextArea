@@ -171,6 +171,10 @@ import org.fife.ui.rsyntaxtextarea.*;
 		// Start off in the proper state.
 		int state = Token.NULL;
 		switch (initialTokenType) {
+			case Token.COMMENT_DOCUMENTATION:
+				state = DOXY;
+				start = text.offset;
+				break;
 			case Token.COMMENT_MULTILINE:
 				state = MLC;
 				start = text.offset;
@@ -270,6 +274,9 @@ WhiteSpace		= [ \t\f]
 
 MLCBegin			= "/*"
 MLCEnd			= "*/"
+DOXYBegin            = "/*!"
+DOXYEnd              = "*/"
+
 LineCommentBegin	= "//"
 
 NonFloatSuffix		= (([uU][lL]?)|([lL][uU]?))
@@ -292,6 +299,7 @@ URL						= (((https?|f(tp|ile))"://"|"www.")({URLCharacters}{URLEndCharacter})?)
 
 
 %state MLC
+%state DOXY
 %state EOL_COMMENT
 
 %%
@@ -633,6 +641,7 @@ URL						= (((https?|f(tp|ile))"://"|"www.")({URLCharacters}{URLEndCharacter})?)
 
 	/* Comment Literals. */
 	{MLCBegin}					{ start = zzMarkedPos-2; yybegin(MLC); }
+	{DOXYBegin}					{ start = zzMarkedPos-3; yybegin(DOXY); }
 	{LineCommentBegin}			{ start = zzMarkedPos-2; yybegin(EOL_COMMENT); }
 
 	/* Separators. */
@@ -710,6 +719,19 @@ URL						= (((https?|f(tp|ile))"://"|"www.")({URLCharacters}{URLEndCharacter})?)
 	{MLCEnd}			{ yybegin(YYINITIAL); addToken(start,zzStartRead+1, Token.COMMENT_MULTILINE); }
 	\*					{}
 	<<EOF>>				{ addToken(start,zzStartRead-1, Token.COMMENT_MULTILINE); return firstToken; }
+
+}
+
+<DOXY> {
+
+	[^hwf\n\*]+			{}
+	{URL}				{ int temp=zzStartRead; addToken(start,zzStartRead-1, Token.COMMENT_DOCUMENTATION); addHyperlinkToken(temp,zzMarkedPos-1, Token.COMMENT_DOCUMENTATION); start = zzMarkedPos; }
+	[hwf]				{}
+
+	\n					{ addToken(start,zzStartRead-1, Token.COMMENT_DOCUMENTATION); return firstToken; }
+	{DOXYEnd}			{ yybegin(YYINITIAL); addToken(start,zzStartRead+1, Token.COMMENT_DOCUMENTATION); }
+	\*					{}
+	<<EOF>>				{ addToken(start,zzStartRead-1, Token.COMMENT_DOCUMENTATION); return firstToken; }
 
 }
 
