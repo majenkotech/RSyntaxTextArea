@@ -67,6 +67,7 @@ class DefaultTokenMakerFactory extends AbstractTokenMakerFactory
 		putMapping(SYNTAX_STYLE_VISUAL_BASIC,	pkg + "VisualBasicTokenMaker");
 		putMapping(SYNTAX_STYLE_WINDOWS_BATCH,	pkg + "WindowsBatchTokenMaker");
 		putMapping(SYNTAX_STYLE_XML,			pkg + "XMLTokenMaker");
+        putMapping(SYNTAX_STYLE_INO,            pkg + "INOTokenMaker");
 
 	}
 

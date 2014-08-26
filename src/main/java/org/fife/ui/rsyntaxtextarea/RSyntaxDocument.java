@@ -531,6 +531,12 @@ public class RSyntaxDocument extends RDocument implements Iterable<Token>,
 		this.syntaxStyle = styleKey;
 	}
 
+    /**
+     * Gets the currently set syntax style used for highlighting
+     */
+    public TokenMaker getSyntaxStyle() {
+        return tokenMaker;
+    }
 
 	/**
 	 * Sets the syntax style being used for syntax highlighting in this

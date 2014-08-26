@@ -255,5 +255,10 @@ public interface SyntaxConstants {
 	 */
 	public static final String SYNTAX_STYLE_XML			= "text/xml";
 
+	/**
+	 * Style for highlighting Arduino INO files.
+	 */
+	public static final String SYNTAX_STYLE_INO			= "text/ino";
+
 
 }

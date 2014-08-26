@@ -131,9 +131,12 @@ public abstract class TokenMakerBase implements TokenMaker {
 		else {
 			TokenImpl next = tokenFactory.createToken(array, start,end,
 													startOffset, tokenType);
-			currentToken.setNextToken(next);
-			previousToken = currentToken;
-			currentToken = next;
+            if (currentToken == null) {
+                return;
+            }
+            currentToken.setNextToken(next);
+            previousToken = currentToken;
+            currentToken = next;
 		}
 
 		currentToken.setLanguageIndex(languageIndex);
