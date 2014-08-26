@@ -459,6 +459,7 @@ public class SyntaxScheme implements Cloneable, TokenTypes {
 		styles[LITERAL_BOOLEAN]			= new Style(literalNumber);
 		styles[LITERAL_NUMBER_DECIMAL_INT]	= new Style(literalNumber);
 		styles[LITERAL_NUMBER_FLOAT]		= new Style(literalNumber);
+		styles[LITERAL_NUMBER_BINARY]	    = new Style(literalNumber);
 		styles[LITERAL_NUMBER_HEXADECIMAL]	= new Style(literalNumber);
 		styles[LITERAL_STRING_DOUBLE_QUOTE]	= new Style(literalString);
 		styles[LITERAL_CHAR]				= new Style(literalString);

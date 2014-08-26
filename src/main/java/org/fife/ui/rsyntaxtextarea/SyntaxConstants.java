@@ -256,9 +256,9 @@ public interface SyntaxConstants {
 	public static final String SYNTAX_STYLE_XML			= "text/xml";
 
 	/**
-	 * Style for highlighting Arduino INO files.
+	 * Style for highlighting C++ files with additional tokens.
 	 */
-	public static final String SYNTAX_STYLE_INO			= "text/ino";
+	public static final String SYNTAX_STYLE_EXTENDABLE_CPLUSPLUS	= "text/c+++";
 
 
 }
